@@ -13,11 +13,9 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
-    # --- Create tables ---
     with app.app_context():
         db.create_all()
 
-        # Create default admin user if it doesn't exist
         if not User.query.filter_by(role='admin').first():
             admin = User(email="admin@site.com", role="admin")
             admin.set_password("AdminPass123")
